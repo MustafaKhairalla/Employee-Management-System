@@ -1,0 +1,25 @@
+{
+  "name": "employee-tracker",
+  "version": "1.0.0",
+  "description": "This application is designed to provide solution for managing a company's employees using node, inquirer, and MySQL.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MustafaKhairalla/Employee-Management-System.git"
+  },
+  "author": "Mustafa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MustafaKhairalla/Employee-Management-System/issues"
+  },
+  "dependencies": {
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
+    "inquirer": "^7.1.0",
+    "mysql": "^2.16.0"
+  },
+  "homepage": "https://github.com/MustafaKhairalla/Employee-Management-System#readme"
+}
