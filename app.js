@@ -5,7 +5,7 @@ const mysql = require("mysql");
 let connection = require("./connection");
 
 //beginSearch();
-addRole();
+addEmployee();
 
 function beginSearch() {
   inquirer
@@ -76,45 +76,44 @@ function addDeprtment() {
 //-----------------------------------------------------------------------------//
 
 function addRole() {
-  var roleChoices = [];
-  let querysql = "select department_name as name from department";
-  connection.query(querysql, function(err, data) {
+  //Build an array of role choices
+  let depChoice = [];
+  var query = "SELECT id as value, department_name as name FROM department";
+  connection.query(query, function(err, res) {
     if (err) throw err;
-    roleChoices = JSON.parse(JSON.stringify(data));
-    //console.log(data);
-  });
-  inquirer
-    .prompt([
+    depChoice = JSON.parse(JSON.stringify(res));
+    var questions = [
       {
-        name: "role",
         type: "input",
-        message: "what is the role you would like to add?"
+        name: "title",
+        message: "What is the name of the new role?"
       },
       {
+        type: "input",
         name: "salary",
-        type: "input",
-        message: "what is the salary for this role?"
+        message: "What is the salary of this new role?"
       },
       {
-        name: "id",
         type: "list",
-        message: "what is the department id?",
-        choices: roleChoices.name
+        name: "department",
+        message: "Which department does the new role belong?",
+        choices: depChoice
       }
-    ])
-    .then(function(respond) {
-      let querySql =
-        "insert into role (role_title, salary, department_id) values (? , ? , ?)";
-      connection.query(
-        querySql,
-        [respond.role, respond.salary, respond.id],
-        (err, data) => {
-          if (err) throw err;
-          console.log("this role has been added");
-          beginSearch();
-        }
-      );
+    ];
+
+    inquirer.prompt(questions).then(res => {
+      const query =
+        "INSERT INTO role (role_title, role_salary, department_id) VALUES (?, ?, ?)";
+      connection.query(query, [res.title, res.salary, res.department], function(
+        err,
+        res
+      ) {
+        if (err) throw err;
+        console.log("The role has been added.");
+        beginSearch();
+      });
     });
+  });
 } // end addRole() function
 
 //-----------------------------------------------------------------------------------------//
@@ -122,38 +121,43 @@ function addRole() {
 function addEmployee() {
   let roleChoice = [];
   let querysql = "select id as value, role_title as name from role";
-  connection.query(querysql, (err, data) => {
+  connection.query(querysql, (err, res) => {
     if (err) throw err;
-    roleChoice = JSON.stringify(data);
-  });
-  inquirer
-    .prompt(
+    roleChoice = JSON.parse(JSON.stringify(res));
+    //console.log(roleChoice);
+    //});
+
+    var questions = [
       {
         name: "f_name",
         type: "input",
         message: "what is the first name?"
       },
       {
-        name: "l_name",
         type: "input",
+        name: "l_name",
         message: "what is the last name?"
       },
       {
-        name: "role_title",
         type: "list",
+        name: "role_title",
         message: "what is the role?",
         choices: roleChoice
       }
-    )
-    .then(function(respond) {
+    ];
+    inquirer.prompt(questions).then(res => {
       let querySql =
         "insert into employee (first_name, last_name, role_id) values (? , ? , ?)";
       connection.query(
         querysql,
-        [respond.f_name, respond.l_name, respond.role_title],
-        function(err, data) {}
+        [res.f_name, res.l_name, res.role_title],
+        function(err, data) {
+          console.log("an employee has been added.");
+          beginSearch();
+        }
       );
     });
+  });
 } // end addEmployee function
 
 //-----------------------------------------------------------------------------------------//
