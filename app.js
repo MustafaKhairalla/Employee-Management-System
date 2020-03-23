@@ -4,8 +4,8 @@ const { prompt } = require("inquirer");
 const mysql = require("mysql");
 let connection = require("./connection");
 
-//beginSearch();
-addEmployee();
+beginSearch();
+//addEmployee();
 
 function beginSearch() {
   inquirer
@@ -206,3 +206,30 @@ function showRole() {
 //     choices: departmentChoices
 //   }
 // ]);
+
+function updateRole() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "What is the new role ID that you would like to assign?",
+        name: "updateRole"
+      },
+      {
+        type: "input",
+        message:
+          "What is the ID number of the employee that you would like to update?",
+        name: "updateId"
+      }
+    ])
+    .then(function(answer) {
+      connection.query(
+        "UPDATE employee SET role_id = ? WHERE role_id = ?",
+        [answer.updateRole, answer.updateId],
+        function(err, res) {
+          if (err) throw err;
+          beginSearch();
+        }
+      );
+    });
+}
