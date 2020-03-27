@@ -146,11 +146,12 @@ function addEmployee() {
       }
     ];
     inquirer.prompt(questions).then(res => {
+      console.log(res);
       let querySql =
-        "insert into employee (first_name, last_name, role_id) values (? , ? , ?)";
+        "insert into employee (first_name, last_name, role_id, manager_id) values (? , ? , ?, ?)";
       connection.query(
         querysql,
-        [res.f_name, res.l_name, res.role_title],
+        [res.f_name, res.l_name, res.role_title, 0],
         function(err, data) {
           console.log("an employee has been added.");
           beginSearch();
