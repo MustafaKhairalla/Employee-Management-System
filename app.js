@@ -39,7 +39,7 @@ function beginSearch() {
           addEmployee();
           break;
         case "Add Department":
-          addDepartment();
+          addDeprtment();
           break;
         case "Add Role":
           addRole();
@@ -102,8 +102,9 @@ function addRole() {
     ];
 
     inquirer.prompt(questions).then(res => {
+      console.log(res);
       const query =
-        "INSERT INTO role (role_title, role_salary, department_id) VALUES (?, ?, ?)";
+        "INSERT INTO role (role_title, salary, department_id) VALUES (?, ?, ?)";
       connection.query(query, [res.title, res.salary, res.department], function(
         err,
         res
@@ -148,17 +149,17 @@ function addEmployee() {
     inquirer.prompt(questions).then(res => {
       console.log(res);
       let querySql =
-        "insert into employee (first_name, last_name, role_id, manager_id) values (? , ? , ?, ?)";
+        "insert into employee (first_name, last_name, role_id) values (? , ? , ?)";
       connection.query(
-        querysql,
-        [res.f_name, res.l_name, res.role_title, 0],
+        querySql,
+        [res.f_name, res.l_name, res.role_title],
         function(err, data) {
           console.log("an employee has been added.");
           beginSearch();
         }
       );
-    });
-  });
+    }); // end of the inquirer
+  }); // end of connection query
 } // end addEmployee function
 
 //-----------------------------------------------------------------------------------------//

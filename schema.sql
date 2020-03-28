@@ -8,9 +8,9 @@ CREATE TABLE employee
 (
     id int NOT NULL AUTO_INCREMENT,
 	first_name varchar(255) NOT NULL,
-    lastname_name varchar(255) NOT NULL,
+    last_name varchar(255) NOT NULL,
     role_id INT NOT NULL,
-    manager_id INT not null,
+    manager_id INT,
 	PRIMARY KEY(id)
 );
 

@@ -1,8 +1,8 @@
-insert into employee (first_name, last_name, role_id) values (conner, willis, 1);
-insert into employee (first_name, last_name, role_id) values (harry, potter, 2);
-insert into employee (first_name, last_name, role_id) values (steve, ling, 3);
-insert into employee (first_name, last_name, role_id) values (henry, willis, 4);
-insert into employee (first_name, last_name, role_id) values (lena, adams, 5);
+insert into employee (first_name, last_name, role_id, manager_id) values ("conner", "willis", 1, 1);
+insert into employee (first_name, last_name, role_id, manager_id) values ("harry", "potter", 2, 1);
+insert into employee (first_name, last_name, role_id, manager_id) values ("steve", "ling", 3, 1);
+insert into employee (first_name, last_name, role_id, manager_id) values ("henry", "willis", 4, 1);
+insert into employee (first_name, last_name, role_id, manager_id) values ("lena", "adams", 5, 1);
 
 insert into department (department_name) values ("Engineering");
 insert into department (department_name) values ("Finance");
